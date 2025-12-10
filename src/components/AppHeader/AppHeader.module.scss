@@ -1,0 +1,10 @@
+.AppHeader {
+  background-color: red;
+
+  &__Wrapper {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
