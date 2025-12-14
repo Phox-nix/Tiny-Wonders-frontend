@@ -1,0 +1,48 @@
+.section {
+  padding: 120px 0;
+  background-color: #f5f5f5;
+}
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 65px;
+  align-items: center;
+}
+.left {
+  h2 {
+    font-size: 40px;
+    margin-bottom: 50px;
+  }
+  p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    max-width: 430px;
+  }
+}
+.button {
+  color: black;
+  font-weight: 300;
+}
+.right img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .left {
+    text-align: center;
+
+    p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

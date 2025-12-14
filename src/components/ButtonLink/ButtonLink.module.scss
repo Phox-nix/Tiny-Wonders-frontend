@@ -1,0 +1,20 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  width: 90px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: #c0e960;
+  color: #fff;
+  font-weight: 300;
+
+  text-decoration: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #d3f08e;
+  transform: translateY(-1px);
+}

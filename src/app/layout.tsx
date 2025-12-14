@@ -1,15 +1,11 @@
 import MainLayout from '@/layout/MainLayout';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Space_Grotesk } from 'next/font/google';
 import '@/assets/styles/main.scss';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-primary',
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
 });
 
@@ -25,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={spaceGrotesk.variable}>
         <MainLayout>{children}</MainLayout>
       </body>
     </html>

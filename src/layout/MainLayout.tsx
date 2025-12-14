@@ -7,7 +7,7 @@ const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <div>
       <AppHeader />
-      <div>{children}</div>
+      <main>{children}</main>
       <AppFooter />
     </div>
   );

@@ -1,11 +1,15 @@
-import Link from 'next/link';
+import HeroSection from '@/modules/news/components/HeroSection/HeroSection';
+import SplitSection from '@/modules/news/components/SplitSection/SplitSection';
+import FeaturedSection from '@/modules/news/components/FeaturedSection/FeaturedSection';
+import App from 'next/app';
 
 const HomePage = () => {
   return (
-    <div>
-      HomePage
-      <Link href="news">Click to go to news page</Link>
-    </div>
+    <>
+      <HeroSection />
+      <SplitSection />
+      <FeaturedSection />
+    </>
   );
 };
 
