@@ -1,6 +1,6 @@
-import HeroSection from '@/modules/news/components/HeroSection/HeroSection';
-import SplitSection from '@/modules/news/components/SplitSection/SplitSection';
-import FeaturedSection from '@/modules/news/components/FeaturedSection/FeaturedSection';
+import HeroSection from '@/components/HeroSection/HeroSection';
+import SplitSection from '@/components/SplitSection/SplitSection';
+import FeaturedSection from '@/components/FeaturedSection/FeaturedSection';
 import App from 'next/app';
 
 const HomePage = () => {

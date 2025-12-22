@@ -19,16 +19,19 @@ const AppHeader = () => {
             </Link>
           </div>
 
-          <nav className={styles.AppHeader__Nav}>
+          <nav
+            className={`${styles.AppHeader__Nav} ${
+              isLanding ? styles.navLanding : styles.navDefault
+            }`}>
             <ul>
               <li>
-                <Link href="home">Home</Link>
+                <Link href="/">Home</Link>
               </li>
               <li>
-                <Link href="articles">Articles</Link>
+                <Link href="/news">Articles</Link>
               </li>
               <li>
-                <ButtonLink href="/about-us">About Us</ButtonLink>
+                <ButtonLink href="/about">About Us</ButtonLink>
               </li>
             </ul>
           </nav>

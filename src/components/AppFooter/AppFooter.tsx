@@ -12,7 +12,7 @@ const AppFooter = () => {
 
         <nav className={styles.nav}>
           <Link href="/about">About Us</Link>
-          <Link href="/articles">Articles</Link>
+          <Link href="/news">Articles</Link>
         </nav>
       </div>
     </footer>

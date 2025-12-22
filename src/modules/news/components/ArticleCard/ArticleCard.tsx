@@ -1,18 +1,22 @@
+import Link from 'next/link';
 import styles from './ArticleCard.module.scss';
 
 type ArticleCardProps = {
+  id: string;
   image: string;
   title: string;
   excerpt: string;
 };
 
-const ArticleCard = ({ image, title, excerpt }: ArticleCardProps) => {
+const ArticleCard = ({ id, image, title, excerpt }: ArticleCardProps) => {
   return (
-    <article className={styles.card}>
-      <img src={image} alt={title} />
-      <h3>{title}</h3>
-      <p>{excerpt}</p>
-    </article>
+    <Link href={`/news/${id}`} className={styles.link}>
+      <article className={styles.card}>
+        <img src={image} alt={title} />
+        <h3>{title}</h3>
+        <p>{excerpt}</p>
+      </article>
+    </Link>
   );
 };
 

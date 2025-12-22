@@ -13,7 +13,7 @@ const SplitSection = () => {
             feel soft, beautiful, and enjoyable — even when the topic is complex. Each post is
             designed to be read in under a minute, because curiosity shouldn’t feel heavy.
           </p>
-          <ButtonLink href="/about-us" className={styles.button}>
+          <ButtonLink href="/about" className={styles.button}>
             Show More
           </ButtonLink>
         </div>
