@@ -8,8 +8,13 @@ import Link from 'next/link';
 const AppHeader = () => {
   const pathname = usePathname();
   const isLanding = pathname === '/';
+  const navItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Articles', href: '/news' },
+    { label: 'About Us', href: '/about', isButton: true },
+  ];
   return (
-    <div
+    <header
       className={`${styles.AppHeader} ${isLanding ? styles.headerLanding : styles.headerDefault}`}>
       <AppContainer>
         <div className={styles.AppHeader__Wrapper}>
@@ -37,7 +42,7 @@ const AppHeader = () => {
           </nav>
         </div>
       </AppContainer>
-    </div>
+    </header>
   );
 };
 

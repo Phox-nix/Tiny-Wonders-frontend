@@ -1,5 +1,6 @@
 'use client';
 
+import ArticleBackButton from '@/components/ArticleBackButton/ArticleBackButton';
 import styles from './ArticleInsideView.module.scss';
 
 interface ArticleInsideProps {
@@ -12,6 +13,7 @@ const ArticleInsideView = ({ title, content, image }: ArticleInsideProps) => {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
+        <ArticleBackButton />
         <div className={styles.image}>
           <img src={image} alt={title} />
         </div>

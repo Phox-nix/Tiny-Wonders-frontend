@@ -1,52 +1,53 @@
 'use client';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import ArticleCard from '@/modules/news/components/ArticleCard/ArticleCard';
 
-const mockArticles = [
-  {
-    id: '1',
-    title: 'Why Does Time Feel Faster As We Age?',
-    excerpt: 'As kids, one year feels huge. As adults, it...',
-    image: '/latestwander-1.svg',
-  },
-  {
-    id: '2',
-    title: 'A Day on Venus Is Longer Than a Year',
-    excerpt: 'On Venus, one full spin on its axis takes longer than its trip around the...',
-    image: '/latestwander-2.svg',
-  },
-  {
-    id: '3',
-    title: 'Trees Can Communicate With Each Other',
-    excerpt: 'Trees send nutrients and warnings through underground fungal networks...',
-    image: '/latestwander-3.svg',
-  },
-  {
-    id: '4',
-    title: 'The Eiffel Tower Can Be 15 cm Taller During the Summer',
-    excerpt: 'When a substance is heated up, its particles move more and it takes ...',
-    image: '/latestwander-5.svg',
-  },
-];
+import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+
+import ArticleCard from '@/modules/news/components/ArticleCard/ArticleCard';
+import { getNews } from '@/services/news';
+import { NewsArticle } from '@/types/news';
+import styles from './FeaturedSlider.module.scss';
 
 const FeaturedSlider = () => {
+  const [articles, setArticles] = useState<NewsArticle[]>([]);
+
+  useEffect(() => {
+    getNews().then((res) => {
+      setArticles(res.data.slice(0, 4));
+    });
+  }, []);
+
   return (
-    <Swiper
-      style={{ width: '100%', paddingBottom: '40px' }}
-      spaceBetween={32}
-      slidesPerView={3}
-      breakpoints={{
-        0: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 },
-      }}>
-      {mockArticles.map((article) => (
-        <SwiperSlide key={article.id}>
-          <ArticleCard {...article} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <div className={styles.arrows}>
+          <button className="swiper-button-prev-custom">←</button>
+          <button className="swiper-button-next-custom">→</button>
+        </div>
+      </div>
+
+      <Swiper
+        modules={[Navigation]}
+        navigation={{
+          prevEl: '.swiper-button-prev-custom',
+          nextEl: '.swiper-button-next-custom',
+        }}
+        spaceBetween={32}
+        slidesPerView={3}
+        breakpoints={{
+          0: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}>
+        {articles.map((article) => (
+          <SwiperSlide key={article.id}>
+            <ArticleCard {...article} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 

@@ -3,3 +3,18 @@
 @use './palette' as *;
 
 @use './vars' as *;
+
+html,
+body {
+  height: 100%;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
