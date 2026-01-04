@@ -30,10 +30,14 @@ const AppHeader = () => {
             }`}>
             <ul>
               <li>
-                <Link href="/">Home</Link>
+                <Link href="/" className={pathname === '/' ? styles.active : ''}>
+                  Home
+                </Link>
               </li>
               <li>
-                <Link href="/news">Articles</Link>
+                <Link href="/news" className={pathname.startsWith('/news') ? styles.active : ''}>
+                  Articles
+                </Link>
               </li>
               <li>
                 <ButtonLink href="/about">About Us</ButtonLink>

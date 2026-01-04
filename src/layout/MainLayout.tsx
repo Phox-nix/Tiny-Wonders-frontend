@@ -2,12 +2,13 @@ import AppFooter from '@/components/AppFooter/AppFooter';
 import AppHeader from '@/components/AppHeader/AppHeader';
 import { PropsWithChildren } from 'react';
 import '@/assets/styles/main.scss';
+import styles from './MainLayout.module.scss';
 
 const MainLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="app-layout">
+    <div className={styles.layout}>
       <AppHeader />
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
       <AppFooter />
     </div>
   );
