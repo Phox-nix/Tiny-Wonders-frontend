@@ -30,10 +30,10 @@
       text-decoration: none;
       font-weight: 600;
       position: relative;
-      color: black;
     }
 
-    ul li:not(:last-child) a {
+    // underline effect only for Home and Articles links
+    ul li:not(:last-child) a:not(.dropdownItem) {
       &::after {
         content: '';
         position: absolute;
@@ -42,7 +42,6 @@
         width: 100%;
         height: 2px;
         background-color: currentColor;
-
         transform: scaleX(0);
         transform-origin: left;
         transition: transform 0.25s ease;
@@ -67,30 +66,91 @@
     height: 40px;
   }
 
-  .headerLanding {
+  // Landing page - dark header, white text
+  &.headerLanding {
     background: transparent;
-  }
 
-  .headerDefault {
-    background-color: #f5f5f5;
-  }
-
-  .navDefault {
-    a {
-      color: black;
-    }
-  }
-
-  .navLanding {
-    a {
+    .AppHeader__Nav a,
+    .dropdownTrigger,
+    .userName,
+    .logoutButton {
       color: white;
     }
   }
+
+  // Default pages - light header, dark text
+  &.headerDefault {
+    background-color: #f5f5f5;
+    position: relative;
+
+    .AppHeader__Nav a,
+    .dropdownTrigger,
+    .userName,
+    .logoutButton {
+      color: #111827;
+    }
+  }
+
+  .dropdownWrapper {
+    position: relative;
+  }
+
+  .dropdownTrigger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    min-width: 180px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .dropdownItem {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    color: #374151 !important;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.15s;
+
+    &:hover {
+      background: #f3f4f6;
+    }
+
+    &::after {
+      display: none !important;
+    }
+  }
+
   .userName {
     font-size: 14px;
     font-weight: 600;
     opacity: 0.8;
-    color: #f5f5f5;
   }
 
   .logoutButton {
@@ -99,13 +159,13 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    color: white;
     padding: 0;
 
     &:hover {
       opacity: 0.7;
     }
   }
+
   @media (max-width: 768px) {
     &__Wrapper {
       height: 64px;
@@ -135,10 +195,6 @@
 
       a {
         font-size: 13px;
-      }
-
-      ul li:not(:last-child) a::after {
-        height: 1.5px;
       }
     }
   }

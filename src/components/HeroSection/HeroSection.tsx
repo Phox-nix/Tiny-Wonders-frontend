@@ -5,7 +5,7 @@ const HeroSection = () => {
     <section className={styles.hero}>
       <div className={styles.content}>
         <h1>Tiny Wonders</h1>
-        <p>Short reads about big ideas,hidden patterns,and the quiet mysteries of our world.</p>
+        <p>Reads about big ideas, quiet mysteries and hidden patterns of our world and mind.</p>
       </div>
     </section>
   );

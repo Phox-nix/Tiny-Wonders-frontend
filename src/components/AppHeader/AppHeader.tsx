@@ -1,17 +1,37 @@
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState, useRef } from 'react';
 import AppContainer from '@/components/AppContainer/AppContainer';
 import ButtonLink from '../ButtonLink/ButtonLink';
 import styles from '@/components/AppHeader/AppHeader.module.scss';
 import Link from 'next/link';
 import useAuthStore from '@/store/authStore';
 import { logout } from '@/services/authService';
+import { getCategories } from '@/services/adminService';
+import { Category } from '@/types/news';
 
 const AppHeader = () => {
   const pathname = usePathname();
   const router = useRouter();
   const isLanding = pathname === '/';
   const { isAuthenticated, isAdmin, user, logout: logoutStore } = useAuthStore();
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    getCategories().then((res) => setCategories(res.data));
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -43,13 +63,31 @@ const AppHeader = () => {
                   Home
                 </Link>
               </li>
-              <li>
-                <Link href="/news" className={pathname.startsWith('/news') ? styles.active : ''}>
-                  Articles
-                </Link>
-              </li>
-              <li>
-                <ButtonLink href="/about">About Us</ButtonLink>
+              <li ref={dropdownRef} className={styles.dropdownWrapper}>
+                <button
+                  className={`${styles.dropdownTrigger} ${pathname.startsWith('/news') ? styles.active : ''}`}
+                  onClick={() => setShowDropdown((prev) => !prev)}>
+                  Articles ▾
+                </button>
+                {showDropdown && (
+                  <div className={styles.dropdown}>
+                    <Link
+                      href="/news"
+                      className={styles.dropdownItem}
+                      onClick={() => setShowDropdown(false)}>
+                      All articles
+                    </Link>
+                    {categories.map((cat) => (
+                      <Link
+                        key={cat.id}
+                        href={`/news?category=${cat.slug}`}
+                        className={styles.dropdownItem}
+                        onClick={() => setShowDropdown(false)}>
+                        {cat.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </li>
               {isAdmin && (
                 <li>
@@ -78,6 +116,9 @@ const AppHeader = () => {
                   </Link>
                 </li>
               )}
+              <li>
+                <ButtonLink href="/about">About Us</ButtonLink>
+              </li>
             </ul>
           </nav>
         </div>
