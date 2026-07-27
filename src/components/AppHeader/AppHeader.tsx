@@ -1,18 +1,27 @@
 'use client';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import AppContainer from '@/components/AppContainer/AppContainer';
 import ButtonLink from '../ButtonLink/ButtonLink';
 import styles from '@/components/AppHeader/AppHeader.module.scss';
 import Link from 'next/link';
+import useAuthStore from '@/store/authStore';
+import { logout } from '@/services/authService';
 
 const AppHeader = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const isLanding = pathname === '/';
-  const navItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Articles', href: '/news' },
-    { label: 'About Us', href: '/about', isButton: true },
-  ];
+  const { isAuthenticated, isAdmin, user, logout: logoutStore } = useAuthStore();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } finally {
+      logoutStore();
+      router.push('/');
+    }
+  };
+
   return (
     <header
       className={`${styles.AppHeader} ${isLanding ? styles.headerLanding : styles.headerDefault}`}>
@@ -42,6 +51,33 @@ const AppHeader = () => {
               <li>
                 <ButtonLink href="/about">About Us</ButtonLink>
               </li>
+              {isAdmin && (
+                <li>
+                  <Link
+                    href="/admin"
+                    className={pathname.startsWith('/admin') ? styles.active : ''}>
+                    Admin
+                  </Link>
+                </li>
+              )}
+              {isAuthenticated ? (
+                <>
+                  <li>
+                    <span className={styles.userName}>{user?.fullName.split(' ')[0]}</span>
+                  </li>
+                  <li>
+                    <button onClick={handleLogout} className={styles.logoutButton}>
+                      Sign out
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <Link href="/login" className={pathname === '/login' ? styles.active : ''}>
+                    Sign in
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

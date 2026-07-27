@@ -6,7 +6,7 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 
 import ArticleCard from '@/modules/news/components/ArticleCard/ArticleCard';
-import { getNews } from '@/services/news';
+import { getArticles } from '@/services/news';
 import { NewsArticle } from '@/types/news';
 import styles from './FeaturedSlider.module.scss';
 
@@ -14,7 +14,7 @@ const FeaturedSlider = () => {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
 
   useEffect(() => {
-    getNews().then((res) => {
+    getArticles().then((res) => {
       setArticles(res.data.slice(0, 4));
     });
   }, []);
@@ -43,7 +43,14 @@ const FeaturedSlider = () => {
         }}>
         {articles.map((article) => (
           <SwiperSlide key={article.id}>
-            <ArticleCard {...article} />
+            <ArticleCard
+              key={article.id}
+              id={article.id}
+              coverImageUrl={article.coverImageUrl}
+              title={article.title}
+              content={article.content}
+              createdAt={article.createdAt}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
