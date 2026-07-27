@@ -1,20 +1,29 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import ArticleInsideView from '@/modules/news/view/ArticleInsideView';
 import { getArticleById } from '@/services/news';
-import { notFound } from 'next/navigation';
+import { NewsArticle } from '@/types/news';
 
-type PageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
+export default function ArticleInsidePage() {
+  const { slug } = useParams<{ slug: string }>();
+  const [article, setArticle] = useState<NewsArticle | null>(null);
+  const [notFound, setNotFound] = useState(false);
 
-export default async function ArticleInsidePage({ params }: PageProps) {
-  const { slug } = await params;
+  useEffect(() => {
+    getArticleById(slug)
+      .then((res) => setArticle(res.data))
+      .catch(() => setNotFound(true));
+  }, [slug]);
 
-  try {
-    const response = await getArticleById(slug);
-    return <ArticleInsideView article={response.data} />;
-  } catch {
-    notFound();
+  if (notFound) {
+    return <p>Article not found.</p>;
   }
+
+  if (!article) {
+    return <p>Loading...</p>;
+  }
+
+  return <ArticleInsideView article={article} />;
 }
