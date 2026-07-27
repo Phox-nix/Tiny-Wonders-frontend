@@ -4,12 +4,12 @@ const values = [
   {
     icon: '/icon2.svg',
     title: 'Curiosity First',
-    text: 'We believe curiosity is the spark behind all learning. Our goal is to inspire questions, not just provide answers.',
+    text: 'I believe curiosity is the spark behind all learning. My goal is to inspire questions, not just provide answers.',
   },
   {
     icon: '/icon3.svg',
-    title: 'Simple & Meaningful',
-    text: 'We keep facts short, clear, and meaningful. No overload, no noise — just ideas worth remembering.',
+    title: 'Personal & Growth',
+    text: 'Authenticity is the driving force of our happiness, with these posts i hope to encourage you to express yourself in your way.',
   },
   {
     icon: '/icon1.svg',

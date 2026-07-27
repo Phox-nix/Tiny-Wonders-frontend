@@ -17,7 +17,6 @@ const Comments = ({ articleId }: CommentsProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const connectionRef = useRef<signalR.HubConnection | null>(null);
   const { isAuthenticated, user } = useAuthStore();
-  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
     // Fetch existing comments
@@ -30,7 +29,7 @@ const Comments = ({ articleId }: CommentsProps) => {
 
     // Set up SignalR connection
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl(`${process.env.NEXT_PUBLIC_HUB_URL}/hubs/comments`, {
+      .withUrl(`${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '')}/hubs/comments`, {
         withCredentials: true,
       })
       .withAutomaticReconnect()
@@ -51,14 +50,10 @@ const Comments = ({ articleId }: CommentsProps) => {
       .start()
       .then(() => {
         connection.invoke('JoinArticle', articleId);
-        setIsConnected(true);
       })
       .catch(console.error);
 
     connectionRef.current = connection;
-    // Handle reconnection
-    connection.onreconnected(() => setIsConnected(true));
-    connection.onclose(() => setIsConnected(false));
 
     // Cleanup on unmount
     return () => {
@@ -127,11 +122,8 @@ const Comments = ({ articleId }: CommentsProps) => {
               if (e.key === 'Enter' && content.trim()) handleSubmit();
             }}
           />
-          <button
-            onClick={handleSubmit}
-            disabled={!content.trim() || !isConnected}
-            className={styles.submitButton}>
-            {!isConnected ? 'Connecting...' : 'Send'}
+          <button onClick={handleSubmit} disabled={!content.trim()} className={styles.submitButton}>
+            Send
           </button>
         </div>
       ) : (
