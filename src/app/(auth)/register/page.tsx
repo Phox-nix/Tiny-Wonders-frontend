@@ -21,15 +21,13 @@ export default function RegisterPage() {
   } = useForm<RegisterRequest>();
 
   const onSubmit = async (data: RegisterRequest) => {
-    console.log('Submitting:', data);
     try {
       setServerError('');
       const response = await registerUser(data);
       login(response.data);
       router.push('/');
-    } catch (error: any) {
-      console.error('Register error:', error);
-      setServerError(error.response?.data?.message || 'Something went wrong. Please try again.');
+    } catch {
+      setServerError('Something went wrong. Please try again.');
     }
   };
 
